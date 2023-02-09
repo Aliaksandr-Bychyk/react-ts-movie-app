@@ -7,10 +7,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        test: /\.(ts|ts)x?$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+        }
       },
       {
         test: /\.css$/,
@@ -21,11 +22,11 @@ module.exports = {
   resolve: { extensions: ["*", ".ts", ".tsx", ".js", ".jxs"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
     filename: "bundle.js"
   },
   devServer: {
-    port: 3000
+    static: {       
+      directory: path.resolve(__dirname, './dist')
+    }
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
 };
